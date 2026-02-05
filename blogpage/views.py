@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import TaskForm
+from django.views.generic import FormView
 
 tasks = []
 
@@ -21,3 +22,12 @@ def task_list(request):
         'form': form,
         'tasks': tasks,
     })
+
+class TaskAddView(FormView):
+    template_name = "blogpage/task_add.html"
+    form_class = TaskForm
+    success_url = "/blogpage/list"
+
+    def form_valid(self, form):
+        tasks.append( (form.cleaned_data['task_name'], form.cleaned_data['task_date']) )
+        return super().form_valid(form)
