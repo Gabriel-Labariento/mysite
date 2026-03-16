@@ -1,9 +1,29 @@
 {% extends 'blogpage/base_blogpage.html' %}
 {% load static %}
+    {%block title%}Task List{%endblock%}
+    {%block header%}Task List{%endblock%}
     {% block content %}
     <ul>
-        {%for task in tasks%}
-        <li>{{task.name}} - {{ task.due_date|date:"Y-m-d"}} </li>
+        {%for task in task_list%}
+        <a href="{{task.get_absolute_url}}"><li>{{task.name}} - {{ task.due_date|date:"Y-m-d"}} </li></a>
         {%endfor%}
     </ul>
+
+    <form action="/" method="post">
+        {% csrf_token %}
+        <label for="task_name">
+        <span>Task Name</span>
+        <input type="text" id="task_name" name="task_name">
+        </label>
+        <label for="task_due">
+        <span>Task Due Date</span>
+        <input type="datetime" id="task_due" name="task_due">
+        </label>
+        <select id="taskgroup" name="taskgroup">
+        {% for group in taskgroups %}
+        <option value="{{ group.pk }}">{{ group.name }}</option>
+        {% endfor %}
+        </select>
+        <input type="submit">
+    </form>
 {% endblock %}

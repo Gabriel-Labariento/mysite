@@ -1,0 +1,17 @@
+{% extends 'blogpage/base_blogpage.html' %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/blogpage/blogpage_base.css' %">
+ {%block title%}Task List | {{task.name}}{%endblock%}
+    {%block header%}Task List | {{task.taskgroup.name}} {%endblock%}
+
+    {% block content %}
+    <a href="{%url 'blogpage:task_list' %}">Return to task list</a>
+    <h1>{{task.taskgroup.name}}</h1>
+     <h2>Made by {{ task.profile.user.username }}, Created on {{task.created_on}}</h2>
+    <h2>{{task.name}}</h2>
+    <p>Due on {{task.due_date|date:"Y-m-d"}}</p>
+
+    {%if task.task_image%}
+    <img src="{{task.task_image.url}}" alt="task image">
+    {%endif%}
+{% endblock %}

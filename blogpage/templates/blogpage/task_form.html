@@ -1,0 +1,13 @@
+{% extends 'blogpage/base_blogpage.html' %}
+{% load static %}
+
+    {% block title %}Add a new task{% endblock %}
+    {% block header %}<h3>Add a new task</h3>{% endblock %}
+    
+    {% block content %}
+    <form action="{% url 'list' %}" method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit" value="Add Task">
+    </form>
+{% endblock %}
