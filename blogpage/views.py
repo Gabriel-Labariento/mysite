@@ -53,11 +53,11 @@ class TaskListView(ListView):
     model = Task
     template_name = 'blogpage/task_list.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = TaskForm()
-        context["task_list"] = Task.objects.filter(profile=self.request.user)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['form'] = TaskForm()
+    #     context["task_list"] = Task.objects.filter(profile=self.request.user)
+    #     return context
     
     def post(self, request, *args, **kwargs):
         form = TaskForm(request.POST)
